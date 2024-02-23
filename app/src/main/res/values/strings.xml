@@ -3,4 +3,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="regional_weather">Regional Weather</string>
+    <string name="search_for_city">Search for City</string>
+    <string name="search_for_a_city">Search for a city...</string>
 </resources>

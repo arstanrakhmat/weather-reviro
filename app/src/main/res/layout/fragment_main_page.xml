@@ -37,12 +37,10 @@
             android:layout_height="wrap_content"
             android:layout_toStartOf="@id/btnMenu"
             android:layout_toEndOf="@id/btnAddCity"
-            android:fontFamily="@font/roboto_bold"
-            android:gravity="center"
-            android:shadowColor="@color/black"
+            style="@style/TopHeader"
+            android:textAlignment="center"
             android:text="@string/regional_weather"
-            android:textColor="@color/white"
-            android:textSize="28sp" />
+            android:textColor="@color/white" />
 
         <ImageView
             android:id="@+id/btnMenu"
@@ -64,7 +62,7 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:listitem="@layout/wheather_info_item"
+        tools:listitem="@layout/item_wheather_info"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/header" />
 
