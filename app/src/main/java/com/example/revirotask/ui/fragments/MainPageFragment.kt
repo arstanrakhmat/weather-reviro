@@ -24,8 +24,14 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding>() {
     }
 
     private fun clickListener() {
-        binding.btnAddCity.setOnClickListener {
-            findNavController().navigate(R.id.searchFragment)
+        binding.apply {
+            btnAddCity.setOnClickListener {
+                findNavController().navigate(R.id.searchFragment)
+            }
+
+            btnMenu.setOnClickListener {
+                findNavController().navigate(R.id.weatherDetailsFragment)
+            }
         }
     }
 

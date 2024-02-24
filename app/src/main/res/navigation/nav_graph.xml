@@ -15,4 +15,9 @@
         android:name="com.example.revirotask.ui.fragments.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" />
+    <fragment
+        android:id="@+id/weatherDetailsFragment"
+        android:name="com.example.revirotask.ui.fragments.weatherDetails.WeatherDetailsFragment"
+        android:label="fragment_weather_details"
+        tools:layout="@layout/fragment_weather_details" />
 </navigation>

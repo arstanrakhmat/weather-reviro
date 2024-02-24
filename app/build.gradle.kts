@@ -82,4 +82,7 @@ dependencies {
 
     kapt("androidx.room:room-compiler:$room_version")
     implementation("androidx.room:room-ktx:$room_version")
+
+    //Dots indicator for view pager
+    implementation("com.tbuonomo:dotsindicator:4.3")
 }

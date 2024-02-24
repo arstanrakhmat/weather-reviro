@@ -4,5 +4,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="regional_weather">Regional Weather</string>
     <string name="search_for_city">Search for City</string>
-    <string name="search_for_a_city">Search for a city...</string>
+    <string name="search_for_a_city">Search for a city…</string>
+    <string name="uv_index">UV Index</string>
+    <string name="wind">Wind</string>
+    <string name="humidity">Humidity</string>
+    <string name="now">Now</string>
 </resources>
