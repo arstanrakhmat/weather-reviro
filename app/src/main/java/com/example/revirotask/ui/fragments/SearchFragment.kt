@@ -29,4 +29,20 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         }
     }
 
+    /*
+    data class Weather(val cityName: String, /* other properties */)
+
+    // List of favorite Weather objects
+    val favoriteWeathers: List<Weather> = // Get your list of favorite Weather objects
+
+    // List of city names from the search screen
+    val searchResults: List<String> = // Get your list of search results
+
+    // Filter out favorite cities from the search results
+    val filteredSearchResults = searchResults.filter { cityName ->
+        !favoriteWeathers.any { it.cityName == cityName }
+    }
+
+    */
+
 }
