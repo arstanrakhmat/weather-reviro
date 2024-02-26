@@ -1,7 +1,6 @@
 package com.example.revirotask.ui.fragments.search
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.revirotask.utils.Resource
 import com.example.revirotask.databinding.FragmentSearchBinding
 import com.example.revirotask.model.City
+import com.example.revirotask.model.Favorite
 import com.example.revirotask.ui.fragments.BaseFragment
+import com.example.revirotask.viewModel.FavoriteViewModel
 import com.example.revirotask.viewModel.WeatherViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -22,6 +23,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
 
     private lateinit var cityAdapter: CityAdapter
     private val weatherViewModel by viewModels<WeatherViewModel>()
+    private val favoriteViewModel by viewModels<FavoriteViewModel>()
 
     override fun inflateView(
         inflater: LayoutInflater,
@@ -57,11 +59,21 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         weatherViewModel.weatherData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Success -> {
-                    hideProgressBar()
                     response.data?.let { weather ->
-                        Log.d("WEATHER_DATA_CHECK", "Weather in ${weather.timezone}: $weather")
+                        Toast.makeText(requireContext(), "Data received", Toast.LENGTH_SHORT).show()
+                        val newFavorite = Favorite(
+                            city = weather.timezone.split("/")[1],
+                            degree = weather.current.temp.toString(),
+                            dt = weather.current.dt,
+                            weatherDescription = weather.current.weather[0].description,
+                            weatherId = weather.current.weather[0].id
+                        )
+
+                        favoriteViewModel.insertFavorite(newFavorite)
+                        hideProgressBar()
                     }
-                    Toast.makeText(requireContext(), "Data received", Toast.LENGTH_SHORT).show()
+                    findNavController().popBackStack()
+
                 }
 
                 is Resource.Error -> {

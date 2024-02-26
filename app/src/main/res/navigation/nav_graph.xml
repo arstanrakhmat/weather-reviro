@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainPageFragment"
-        android:name="com.example.revirotask.ui.fragments.MainPageFragment"
+        android:name="com.example.revirotask.ui.fragments.mainPage.MainPageFragment"
         android:label="fragment_main_page"
         tools:layout="@layout/fragment_main_page" />
     <fragment

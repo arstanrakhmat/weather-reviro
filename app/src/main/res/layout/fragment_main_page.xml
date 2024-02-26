@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/main_page_background"
-    tools:context=".ui.fragments.MainPageFragment">
+    tools:context=".ui.fragments.mainPage.MainPageFragment">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/lineTop1"

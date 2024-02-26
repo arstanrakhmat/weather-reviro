@@ -15,11 +15,11 @@ data class Favorite(
     val degree: String,
 
     @ColumnInfo(name = "dt")
-    val dt: String,
+    val dt: Int,
 
     @ColumnInfo(name = "weatherDescription")
     val weatherDescription: String,
 
     @ColumnInfo(name = "weatherId")
-    val weatherId: String,
+    val weatherId: Int,
 )

@@ -15,6 +15,7 @@ interface WeatherApi {
         @Query("lat") latitude: String,
         @Query("lon") longitude: String,
         @Query("exclude") exclude: String = "minutely,alerts,daily",
+        @Query("units") units: String = "metric",
         @Query("appid") appid: String = Constants.API_KEY,
     ): Response<Weather>
 }
