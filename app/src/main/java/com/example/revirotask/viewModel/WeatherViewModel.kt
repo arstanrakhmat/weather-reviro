@@ -3,7 +3,7 @@ package com.example.revirotask.viewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.revirotask.data.Resource
+import com.example.revirotask.utils.Resource
 import com.example.revirotask.model.Weather
 import com.example.revirotask.repository.WeatherRepository
 import dagger.hilt.android.lifecycle.HiltViewModel

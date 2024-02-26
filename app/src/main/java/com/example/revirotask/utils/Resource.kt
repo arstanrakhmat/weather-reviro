@@ -1,4 +1,4 @@
-package com.example.revirotask.data
+package com.example.revirotask.utils
 
 sealed class Resource<T>(
     val data: T? = null,

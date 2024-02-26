@@ -10,7 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.revirotask.data.Resource
+import com.example.revirotask.utils.Resource
 import com.example.revirotask.databinding.FragmentSearchBinding
 import com.example.revirotask.model.City
 import com.example.revirotask.ui.fragments.BaseFragment
