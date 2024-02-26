@@ -7,6 +7,19 @@
     android:background="@drawable/main_page_background"
     tools:context=".ui.fragments.search.SearchFragment">
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="gone"
+        android:indeterminateTint="@color/white"
+        android:indeterminateTintMode="src_atop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/lineTop1"
         android:layout_width="wrap_content"
@@ -77,8 +90,8 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:listitem="@layout/item_city_search"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/citySearch" />
+        app:layout_constraintTop_toBottomOf="@id/citySearch"
+        tools:listitem="@layout/item_city_search" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

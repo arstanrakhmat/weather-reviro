@@ -1,19 +1,27 @@
 package com.example.revirotask.ui.fragments.search
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.revirotask.data.Resource
 import com.example.revirotask.databinding.FragmentSearchBinding
 import com.example.revirotask.model.City
 import com.example.revirotask.ui.fragments.BaseFragment
+import com.example.revirotask.viewModel.WeatherViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SearchFragment : BaseFragment<FragmentSearchBinding>() {
 
     private lateinit var cityAdapter: CityAdapter
+    private val weatherViewModel by viewModels<WeatherViewModel>()
 
     override fun inflateView(
         inflater: LayoutInflater,
@@ -22,17 +30,11 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         return FragmentSearchBinding.inflate(inflater, container, false)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return super.onCreateView(inflater, container, savedInstanceState)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRv()
+        setupObserver()
+        setupSearchView()
         clickListeners()
     }
 
@@ -44,12 +46,41 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         }
 
         cityAdapter.setOnAddToFavoriteClickListener { cityInfo ->
-            Toast.makeText(requireContext(), cityInfo.name, Toast.LENGTH_SHORT).show()
+            weatherViewModel.getWeatherData(
+                cityInfo.latitude.toString(),
+                cityInfo.longitude.toString()
+            )
+        }
+    }
+
+    private fun setupObserver() {
+        weatherViewModel.weatherData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Success -> {
+                    hideProgressBar()
+                    response.data?.let { weather ->
+                        Log.d("WEATHER_DATA_CHECK", "Weather in ${weather.timezone}: $weather")
+                    }
+                    Toast.makeText(requireContext(), "Data received", Toast.LENGTH_SHORT).show()
+                }
+
+                is Resource.Error -> {
+                    hideProgressBar()
+                    response.message?.let { message ->
+                        Toast.makeText(requireContext(), "Error: $message", Toast.LENGTH_LONG)
+                            .show()
+                    }
+                }
+
+                is Resource.Loading -> {
+                    showProgressBar()
+                }
+            }
         }
     }
 
     private fun setupRv() {
-        val cities = listOf(
+        val cities = arrayListOf(
             City("Tokyo", 35.6895, 139.6917),
             City("New York", 40.7128, -74.0060),
             City("Paris", 48.8566, 2.3522),
@@ -62,6 +93,30 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = cityAdapter
         }
+    }
+
+    private fun setupSearchView() {
+        binding.citySearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
+            androidx.appcompat.widget.SearchView.OnQueryTextListener {
+
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                cityAdapter.getFilter().filter(query)
+                return true
+            }
+
+            override fun onQueryTextChange(p0: String?): Boolean {
+                cityAdapter.getFilter().filter(p0)
+                return true
+            }
+        })
+    }
+
+    private fun hideProgressBar() {
+        binding.progressBar.visibility = View.GONE
+    }
+
+    private fun showProgressBar() {
+        binding.progressBar.visibility = View.VISIBLE
     }
 
     /*
