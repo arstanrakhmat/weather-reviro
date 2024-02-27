@@ -286,6 +286,7 @@
                 tools:ignore="HardcodedText" />
 
             <ImageView
+                android:id="@+id/weatherIconNow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -304,6 +305,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
+                android:id="@+id/tvDegreeWhatTime1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -328,6 +330,7 @@
                 tools:ignore="HardcodedText" />
 
             <ImageView
+                android:id="@+id/weatherIcon1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -346,6 +349,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
+                android:id="@+id/tvDegreeWhatTime2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -370,6 +374,7 @@
                 tools:ignore="HardcodedText" />
 
             <ImageView
+                android:id="@+id/weatherIcon2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -388,6 +393,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
+                android:id="@+id/tvDegreeWhatTime3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -412,6 +418,7 @@
                 tools:ignore="HardcodedText" />
 
             <ImageView
+                android:id="@+id/weatherIcon3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -430,6 +437,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
+                android:id="@+id/tvDegreeWhatTime4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -454,6 +462,7 @@
                 tools:ignore="HardcodedText" />
 
             <ImageView
+                android:id="@+id/weatherIcon4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"

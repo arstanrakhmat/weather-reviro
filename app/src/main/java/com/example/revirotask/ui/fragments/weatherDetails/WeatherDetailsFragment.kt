@@ -4,24 +4,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.example.revirotask.databinding.FragmentWeatherDetailsBinding
+import com.example.revirotask.model.Favorite
 import com.example.revirotask.ui.fragments.BaseFragment
+import com.example.revirotask.viewModel.FavoriteViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 
+@AndroidEntryPoint
 class WeatherDetailsFragment : BaseFragment<FragmentWeatherDetailsBinding>() {
 
-    companion object {
-        val citiesList = listOf(
-            "Bishkek",
-            "Osh",
-            "Moscow",
-            "Astana",
-            "New-York",
-            "Washington",
-            "Dysney",
-            "Virginia",
-        )
-    }
+    private val favoriteViewModel by viewModels<FavoriteViewModel>()
 
     override fun inflateView(
         inflater: LayoutInflater,
@@ -32,13 +28,17 @@ class WeatherDetailsFragment : BaseFragment<FragmentWeatherDetailsBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupViewPager()
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            favoriteViewModel.favList.collect { listOfWeatherValues ->
+                setupViewPager(listOfWeatherValues)
+            }
+        }
     }
 
-    private fun setupViewPager() {
-
+    private fun setupViewPager(list: List<Favorite>) {
         val vpAdapter = WeatherDetailsViewPagerAdapter(
-            citiesList,
+            list,
             requireActivity().supportFragmentManager,
             lifecycle
         )

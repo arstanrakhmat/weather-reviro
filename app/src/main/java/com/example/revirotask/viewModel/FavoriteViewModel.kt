@@ -16,27 +16,16 @@ import javax.inject.Inject
 class FavoriteViewModel @Inject constructor(private val weatherDbRepository: WeatherDbRepository) :
     ViewModel() {
 
-    private val _loadingState = MutableStateFlow<Boolean>(true)
-    val loadingState = _loadingState.asStateFlow()
-
     private val _favList = MutableStateFlow<List<Favorite>>(emptyList())
     val favList = _favList.asStateFlow()
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
             weatherDbRepository.getAllFavorites().distinctUntilChanged().collect { listOfFavs ->
-//                if (listOfFavs.isEmpty()) {
-//                    Log.d("FAVS", ": EMPTY_FAVS")
-//                } else {
-//                    _favList.value = listOfFavs
-//                    Log.d("FAVS", ":${favList.value}")
-//                }
-                _loadingState.value = false // Set loading state to false when data is loaded
                 _favList.value = listOfFavs
             }
         }
     }
-
 
     fun insertFavorite(favorite: Favorite) = viewModelScope.launch {
         weatherDbRepository.insertFavorite(favorite)
@@ -49,5 +38,4 @@ class FavoriteViewModel @Inject constructor(private val weatherDbRepository: Wea
     fun deleteFavorite(favorite: Favorite) = viewModelScope.launch {
         weatherDbRepository.deleteFavorite(favorite)
     }
-
 }

@@ -9,11 +9,13 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.revirotask.utils.Resource
 import com.example.revirotask.databinding.FragmentSearchBinding
-import com.example.revirotask.model.City
 import com.example.revirotask.model.Favorite
+import com.example.revirotask.model.Hourly
+import com.example.revirotask.model.mapHourlyToFavHourly
 import com.example.revirotask.ui.fragments.BaseFragment
+import com.example.revirotask.utils.Constants
+import com.example.revirotask.utils.Resource
 import com.example.revirotask.viewModel.FavoriteViewModel
 import com.example.revirotask.viewModel.WeatherViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -61,12 +63,18 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
                 is Resource.Success -> {
                     response.data?.let { weather ->
                         Toast.makeText(requireContext(), "Data received", Toast.LENGTH_SHORT).show()
+                        val hourlyListFilteredFirst5 = filterHourlyList(weather.hourly)
+                        val favHourlyList = mapHourlyToFavHourly(hourlyListFilteredFirst5)
                         val newFavorite = Favorite(
                             city = weather.timezone.split("/")[1],
-                            degree = weather.current.temp.toString(),
+                            degree = weather.current.temp.toInt(),
                             dt = weather.current.dt,
                             weatherDescription = weather.current.weather[0].description,
-                            weatherId = weather.current.weather[0].id
+                            weatherId = weather.current.weather[0].id,
+                            uvIndex = weather.current.uvi,
+                            wind = weather.current.wind_speed,
+                            humidity = weather.current.humidity,
+                            hourlyList = favHourlyList
                         )
 
                         favoriteViewModel.insertFavorite(newFavorite)
@@ -92,14 +100,10 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
     }
 
     private fun setupRv() {
-        val cities = arrayListOf(
-            City("Tokyo", 35.6895, 139.6917),
-            City("New York", 40.7128, -74.0060),
-            City("Paris", 48.8566, 2.3522),
-            City("London", 51.5074, -0.1278),
-            City("Beijing", 39.9042, 116.4074),
-        )
-        cityAdapter = CityAdapter(cities)
+        cityAdapter = CityAdapter(Constants.CITIES)
+
+        Toast.makeText(requireContext(), "${favoriteViewModel.favList.value.size}", Toast.LENGTH_SHORT)
+            .show()
 
         binding.rvCity.apply {
             layoutManager = LinearLayoutManager(requireContext())
@@ -121,6 +125,12 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
                 return true
             }
         })
+    }
+
+    private fun filterHourlyList(inputList: List<Hourly>): List<Hourly> {
+        val indicesToInclude = listOf(0, 2, 4, 6, 8)
+
+        return inputList.filterIndexed { index, _ -> index in indicesToInclude }
     }
 
     private fun hideProgressBar() {

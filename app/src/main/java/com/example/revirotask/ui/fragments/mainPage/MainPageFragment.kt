@@ -14,8 +14,7 @@ import com.example.revirotask.databinding.FragmentMainPageBinding
 import com.example.revirotask.ui.fragments.BaseFragment
 import com.example.revirotask.viewModel.FavoriteViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainPageFragment : BaseFragment<FragmentMainPageBinding>() {
@@ -43,18 +42,14 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding>() {
                 findNavController().navigate(R.id.searchFragment)
             }
 
-            btnMenu.setOnClickListener {
-                findNavController().navigate(R.id.weatherDetailsFragment)
-            }
-
             favoritesAdapter.setOnDeleteClickListener { favorite ->
                 favoriteViewModel.deleteFavorite(favorite)
-                // Manually update RecyclerView after deletion
-                val updatedList = favoriteViewModel.favList.value
-                favoritesAdapter.differ.submitList(updatedList)
-
-                Toast.makeText(requireContext(), "Deleted", Toast.LENGTH_LONG)
+                Toast.makeText(requireContext(), "Deleted Successfully", Toast.LENGTH_LONG)
                     .show()
+            }
+
+            favoritesAdapter.setOnFavoriteClickListener {
+                findNavController().navigate(R.id.weatherDetailsFragment)
             }
         }
     }
@@ -66,11 +61,11 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding>() {
             adapter = favoritesAdapter
         }
 
-        favoriteViewModel.loadingState.onEach { isLoading ->
-            if (!isLoading) {
-                val listOfWeatherValues = favoriteViewModel.favList.value
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            favoriteViewModel.favList.collect { listOfWeatherValues ->
                 favoritesAdapter.differ.submitList(listOfWeatherValues)
             }
-        }.launchIn(viewLifecycleOwner.lifecycleScope)
+        }
     }
 }

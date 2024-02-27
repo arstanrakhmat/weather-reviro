@@ -5,9 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.revirotask.R
 import com.example.revirotask.databinding.ItemWheatherInfoBinding
 import com.example.revirotask.model.Favorite
-import com.example.revirotask.utils.formatDateTime
+import com.example.revirotask.utils.convertUnixTimestampToHourMinute
 
 class FavoritesAdapter : RecyclerView.Adapter<FavoritesAdapter.ViewHolder>() {
 
@@ -37,12 +38,27 @@ class FavoritesAdapter : RecyclerView.Adapter<FavoritesAdapter.ViewHolder>() {
 
         holder.binding.apply {
             tvCity.text = favorite.city
-            tvDegree.text = favorite.degree
-            tvCurrentTime.text = formatDateTime(favorite.dt)
+            tvDegree.text = favorite.degree.toString()
+            tvCurrentTime.text = convertUnixTimestampToHourMinute(favorite.dt)
             tvDescription.text = favorite.weatherDescription
+
+            ivIcon.setImageResource(
+                when (favorite.weatherId) {
+                    in 200..699 -> R.drawable.ic_mostly_rainy
+                    in 700..799 -> R.drawable.ic_partly_cloudy
+                    800 -> R.drawable.ic_mostly_sunny
+                    else -> R.drawable.ic_partly_cloudy
+                }
+            )
+
+            root.setOnClickListener {
+                onItemClickListenerForFavorite?.invoke()
+            }
+
             btnDelete.setOnClickListener {
                 onItemClickListener?.let { it(favorite) }
             }
+
         }
     }
 
@@ -51,7 +67,13 @@ class FavoritesAdapter : RecyclerView.Adapter<FavoritesAdapter.ViewHolder>() {
     }
 
     private var onItemClickListener: ((Favorite) -> Unit)? = null
+    private var onItemClickListenerForFavorite: (() -> Unit)? = null
+
     fun setOnDeleteClickListener(listener: (Favorite) -> Unit) {
         onItemClickListener = listener
+    }
+
+    fun setOnFavoriteClickListener(listener: () -> Unit) {
+        onItemClickListenerForFavorite = listener
     }
 }
