@@ -30,7 +30,7 @@ Endpoint: `https://api.openweathermap.org/data/3.0/onecall`
   metric, imperial).
 - `appid`: API key for authentication.
 
-## Parameters
+## Data provided
 
 The API response includes a variety of weather information in the app, such as:
 
