@@ -10,7 +10,8 @@ used <a href="https://openweathermap.org" target="_blank">OpenWeatherMap</a> API
 2. **Open in Android Studio:** Open Android Studio and select "Open an existing Android Studio
    project." Navigate to the cloned repository and select the project.
 3. **API KEY:** Obtain an API key from <a href="https://openweathermap.org" target="_blank">
-   OpenWeatherMap</a>. Replace the placeholder in the `Constants` file with your API key if you would like to use your one.
+   OpenWeatherMap</a>. Replace the placeholder in the `Constants` file with your API key if you
+   would like to use your one. By default I add my API_KEY.
 
 ## Running the App
 
