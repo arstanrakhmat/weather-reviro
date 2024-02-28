@@ -31,7 +31,7 @@ your favorite ones you should click `Plus` button
 It is `Search Screen`. Here you can use search view to find any capital city you want, save it to
 the database, and see the latest searched cities in `ChipGroup`
 
-![Main Screen With Data](app/src/main/res/drawable/search_view_active.png?raw=true)
+![Main Screen With Data](app/src/main/res/drawable/main_screen_with_data.png?raw=true)
 It is again the main screen, but in this time with saved cities to database. You are allowed to
 refresh data of cities from network to database by swiping down the screen. Moreover, you can remove
 city
