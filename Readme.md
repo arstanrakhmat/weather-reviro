@@ -1,7 +1,8 @@
 # Mobile application for a Weather Dashboard
 
 This project is on creating an Android Weather App using Kotlin. This app allows users to search for
-and display the current weather and forecast in their city. To get the weather information I
+all capital cities of the world, save favorite cities
+and display the current weather and forecast of chosen cities. To get the weather information I
 used <a href="https://openweathermap.org" target="_blank">OpenWeatherMap</a> API.
 
 ## Setup
@@ -19,7 +20,15 @@ Connect your Android device or use an emulator to run the application. Click the
 Android Studio to install and launch the app.
 
 ## Usage
+
 ![Empty Main Screen](app/src/main/res/drawable/empty_main_screen.png?raw=true)
+It is the main screen of the app that display your saved cities. In the current state there are not
+favorites and chosen cities, that is why the screen is empty. To search capital cities and chose
+your favorite ones you should click `Plus` button
+
+![Default Search Screen](app/src/main/res/drawable/default_search_screen.png?raw=true)
+It is `Search Screen`. Here you can use search view to find any capital city you want, save it to
+the database, and see the latest searched cities in `ChipGroup`
 
 ## API Endpoint
 
