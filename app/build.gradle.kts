@@ -91,4 +91,7 @@ dependencies {
 
     //Dots indicator for view pager
     implementation("com.tbuonomo:dotsindicator:4.3")
+
+    //Swipe to refresh
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
 }

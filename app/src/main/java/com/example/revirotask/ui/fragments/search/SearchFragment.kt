@@ -15,12 +15,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.revirotask.R
 import com.example.revirotask.databinding.FragmentSearchBinding
 import com.example.revirotask.model.Favorite
-import com.example.revirotask.model.Hourly
 import com.example.revirotask.model.Recent
 import com.example.revirotask.model.mapHourlyToFavHourly
 import com.example.revirotask.ui.fragments.BaseFragment
 import com.example.revirotask.utils.Constants
 import com.example.revirotask.utils.Resource
+import com.example.revirotask.utils.filterHourlyList
 import com.example.revirotask.viewModel.FavoriteViewModel
 import com.example.revirotask.viewModel.WeatherViewModel
 import com.google.android.material.chip.Chip
@@ -75,6 +75,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
                         val cityS = weather.timezone.split("/")[1]
                         val newFavorite = Favorite(
                             city = cityS,
+                            latitude = weather.lat.toString(),
+                            longitude = weather.lon.toString(),
                             degree = weather.current.temp.toInt(),
                             dt = weather.current.dt,
                             weatherDescription = weather.current.weather[0].description,
@@ -156,12 +158,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         chip.isEnabled = false
 
         binding.chipGroup.addView(chip)
-    }
-
-    private fun filterHourlyList(inputList: List<Hourly>): List<Hourly> {
-        val indicesToInclude = listOf(0, 2, 4, 6, 8)
-
-        return inputList.filterIndexed { index, _ -> index in indicesToInclude }
     }
 
     private fun hideProgressBar() {

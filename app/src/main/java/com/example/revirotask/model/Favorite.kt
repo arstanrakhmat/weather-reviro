@@ -12,6 +12,12 @@ data class Favorite(
     @ColumnInfo(name = "city")
     val city: String,
 
+    @ColumnInfo(name = "lat")
+    val latitude: String,
+
+    @ColumnInfo(name = "lon")
+    val longitude: String,
+
     @ColumnInfo(name = "degree")
     val degree: Int,
 
