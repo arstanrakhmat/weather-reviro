@@ -6,7 +6,7 @@ used <a href="https://openweathermap.org" target="_blank">OpenWeatherMap</a> API
 
 
 ## Setup
-1. **Clone the Repository:**: ```https://github.com/arstanrakhmat/weather-reviro```
+1. **Clone the Repository:** ```https://github.com/arstanrakhmat/weather-reviro```
 
 ## API Endpoint
 Endpoint: `https://api.openweathermap.org/data/3.0/onecall`
