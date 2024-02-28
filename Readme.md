@@ -1,1 +1,2 @@
 # Mobile application for a Weather Dashboard
+This project is on creating an Android Weather App using Kotlin. This app allows users to search for and display the current weather and forecast in their city.
