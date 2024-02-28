@@ -108,49 +108,9 @@
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chipGroup"
             android:layout_width="wrap_content"
-
             android:layout_height="wrap_content"
             app:singleLine="true">
 
-            <com.google.android.material.chip.Chip
-                style="@style/CustomChipStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Bishkek"
-                android:enabled="false"
-                tools:ignore="HardcodedText" />
-
-            <com.google.android.material.chip.Chip
-                style="@style/CustomChipStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="New York"
-                android:enabled="false"
-                tools:ignore="HardcodedText" />
-
-            <com.google.android.material.chip.Chip
-                style="@style/CustomChipStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tegeran"
-                android:enabled="false"
-                tools:ignore="HardcodedText" />
-
-            <com.google.android.material.chip.Chip
-                style="@style/CustomChipStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Moscow"
-                android:enabled="false"
-                tools:ignore="HardcodedText" />
-
-            <com.google.android.material.chip.Chip
-                style="@style/CustomChipStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Minsk"
-                android:enabled="false"
-                tools:ignore="HardcodedText" />
 
         </com.google.android.material.chip.ChipGroup>
 

@@ -4,10 +4,11 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.revirotask.model.Favorite
+import com.example.revirotask.model.Recent
 import com.example.revirotask.utils.MyTypeConverters
 
-@Database(entities = [Favorite::class], version = 1, exportSchema = false)
+@Database(entities = [Favorite::class, Recent::class], version = 1, exportSchema = false)
 @TypeConverters(MyTypeConverters::class)
 abstract class WeatherDatabase : RoomDatabase() {
-    abstract fun weatherDao() : WeatherDao
+    abstract fun weatherDao(): WeatherDao
 }

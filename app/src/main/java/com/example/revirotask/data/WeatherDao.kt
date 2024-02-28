@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.example.revirotask.model.Favorite
+import com.example.revirotask.model.Recent
 import kotlinx.coroutines.flow.Flow
 
 
@@ -24,4 +25,10 @@ interface WeatherDao {
 
     @Delete
     suspend fun deleteFavorite(favorite: Favorite)
+
+    @Query("SELECT * FROM recent_tbl")
+    fun getRecentCities(): Flow<List<Recent>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertToRecent(recent: Recent)
 }

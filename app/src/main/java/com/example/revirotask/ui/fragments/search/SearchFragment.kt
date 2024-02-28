@@ -1,24 +1,31 @@
 package com.example.revirotask.ui.fragments.search
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.revirotask.R
 import com.example.revirotask.databinding.FragmentSearchBinding
 import com.example.revirotask.model.Favorite
 import com.example.revirotask.model.Hourly
+import com.example.revirotask.model.Recent
 import com.example.revirotask.model.mapHourlyToFavHourly
 import com.example.revirotask.ui.fragments.BaseFragment
 import com.example.revirotask.utils.Constants
 import com.example.revirotask.utils.Resource
 import com.example.revirotask.viewModel.FavoriteViewModel
 import com.example.revirotask.viewModel.WeatherViewModel
+import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SearchFragment : BaseFragment<FragmentSearchBinding>() {
@@ -37,6 +44,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRv()
+        setupChipGroup()
         setupObserver()
         setupSearchView()
         clickListeners()
@@ -62,11 +70,11 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
             when (response) {
                 is Resource.Success -> {
                     response.data?.let { weather ->
-                        Toast.makeText(requireContext(), "Data received", Toast.LENGTH_SHORT).show()
                         val hourlyListFilteredFirst5 = filterHourlyList(weather.hourly)
                         val favHourlyList = mapHourlyToFavHourly(hourlyListFilteredFirst5)
+                        val cityS = weather.timezone.split("/")[1]
                         val newFavorite = Favorite(
-                            city = weather.timezone.split("/")[1],
+                            city = cityS,
                             degree = weather.current.temp.toInt(),
                             dt = weather.current.dt,
                             weatherDescription = weather.current.weather[0].description,
@@ -78,6 +86,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
                         )
 
                         favoriteViewModel.insertFavorite(newFavorite)
+                        favoriteViewModel.insertToRecent(Recent(cityS))
                         hideProgressBar()
                     }
                     findNavController().popBackStack()
@@ -102,9 +111,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
     private fun setupRv() {
         cityAdapter = CityAdapter(Constants.CITIES)
 
-        Toast.makeText(requireContext(), "${favoriteViewModel.favList.value.size}", Toast.LENGTH_SHORT)
-            .show()
-
         binding.rvCity.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = cityAdapter
@@ -127,6 +133,31 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         })
     }
 
+    private fun setupChipGroup() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            favoriteViewModel.recentList.collect { listOfRecent ->
+                if (listOfRecent.isEmpty()) {
+                    hideChipGroup()
+                } else {
+                    showChipGroup()
+                    listOfRecent.forEach { recent ->
+                        addChips(requireContext(), recent)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun addChips(context: Context, recent: Recent) {
+        val chip = Chip(context, null, R.style.CustomChipStyle)
+        chip.textSize = 16F
+        chip.setTextColor(ContextCompat.getColor(context, R.color.chip_text_color))
+        chip.text = recent.city
+        chip.isEnabled = false
+
+        binding.chipGroup.addView(chip)
+    }
+
     private fun filterHourlyList(inputList: List<Hourly>): List<Hourly> {
         val indicesToInclude = listOf(0, 2, 4, 6, 8)
 
@@ -139,6 +170,16 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
 
     private fun showProgressBar() {
         binding.progressBar.visibility = View.VISIBLE
+    }
+
+    private fun hideChipGroup() {
+        binding.scrollViewForChips.visibility = View.GONE
+        binding.tvPopularCities.visibility = View.GONE
+    }
+
+    private fun showChipGroup() {
+        binding.scrollViewForChips.visibility = View.VISIBLE
+        binding.tvPopularCities.visibility = View.VISIBLE
     }
 
     /*
