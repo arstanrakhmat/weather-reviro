@@ -19,7 +19,7 @@ Connect your Android device or use an emulator to run the application. Click the
 Android Studio to install and launch the app.
 
 ## Usage
-![Empty Main Screen](app/src/main/res/drawable/empty_main_screen.png)
+![Empty Main Screen](app/src/main/res/drawable/empty_main_screen.png?raw=true)
 
 ## API Endpoint
 
