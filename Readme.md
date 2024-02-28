@@ -18,6 +18,9 @@ used <a href="https://openweathermap.org" target="_blank">OpenWeatherMap</a> API
 Connect your Android device or use an emulator to run the application. Click the "Run" button in
 Android Studio to install and launch the app.
 
+## Usage
+**TBD**
+
 ## API Endpoint
 
 Endpoint: `https://api.openweathermap.org/data/3.0/onecall`
