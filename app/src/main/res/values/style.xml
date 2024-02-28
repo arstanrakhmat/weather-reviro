@@ -11,4 +11,10 @@
         <item name="fontFamily">@font/roboto_medium</item>
         <item name="android:textColor">#8C8C8C</item>
     </style>
+
+    <style name="CustomChipStyle" parent="Widget.MaterialComponents.Chip.Filter">
+        <item name="chipBackgroundColor">@color/chip_background</item>
+        <item name="android:textColor">@color/chip_text_color</item>
+        <item name="android:textSize">16sp</item>
+    </style>
 </resources>
