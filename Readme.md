@@ -27,8 +27,20 @@ favorites and chosen cities, that is why the screen is empty. To search capital 
 your favorite ones you should click `Plus` button
 
 ![Default Search Screen](app/src/main/res/drawable/default_search_screen.png?raw=true)
+![SearchView Screen](app/src/main/res/drawable/search_view_active.png?raw=true)
 It is `Search Screen`. Here you can use search view to find any capital city you want, save it to
 the database, and see the latest searched cities in `ChipGroup`
+
+![Main Screen With Data](app/src/main/res/drawable/search_view_active.png?raw=true)
+It is again the main screen, but in this time with saved cities to database. You are allowed to
+refresh data of cities from network to database by swiping down the screen. Moreover, you can remove
+city
+from database using `Delete` or By clicking to City you can move the next screen with detail
+information
+
+![Main Screen With Data](app/src/main/res/drawable/detail_info.png?raw=true)
+In this screen you can see more detailed information of `each saved city`. In this screen there such
+info as: `humidity`, `wind speed`, `uv index` and `the neares hourly forecast`
 
 ## API Endpoint
 
