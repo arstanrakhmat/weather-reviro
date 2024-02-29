@@ -38,9 +38,13 @@ city
 from database using `Delete` or By clicking to City you can move the next screen with detail
 information
 
-![Main Screen With Data](app/src/main/res/drawable/detail_info.png?raw=true)
+![Screen With Data](app/src/main/res/drawable/detail_info.png?raw=true)
 In this screen you can see more detailed information of `each saved city`. In this screen there such
 info as: `humidity`, `wind speed`, `uv index` and `the neares hourly forecast`
+
+## Refresh Saved Data
+To refresh weather data and forecast of each saved city you just need swipe down the screen
+![Screen Refresh Data](app/src/main/res/drawable/screen_refresh.png?raw=true)
 
 ## API Endpoint
 
