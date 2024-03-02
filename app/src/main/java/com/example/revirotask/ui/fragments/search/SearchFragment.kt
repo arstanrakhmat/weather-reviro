@@ -20,6 +20,7 @@ import com.example.revirotask.model.mapHourlyToFavHourly
 import com.example.revirotask.ui.fragments.BaseFragment
 import com.example.revirotask.utils.Constants
 import com.example.revirotask.utils.Resource
+import com.example.revirotask.utils.checkForInternet
 import com.example.revirotask.utils.filterHourlyList
 import com.example.revirotask.viewModel.FavoriteViewModel
 import com.example.revirotask.viewModel.WeatherViewModel
@@ -58,10 +59,14 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         }
 
         cityAdapter.setOnAddToFavoriteClickListener { cityInfo ->
-            weatherViewModel.getWeatherData(
-                cityInfo.latitude.toString(),
-                cityInfo.longitude.toString()
-            )
+            if (checkForInternet(requireContext())) {
+                weatherViewModel.getWeatherData(
+                    cityInfo.latitude.toString(),
+                    cityInfo.longitude.toString()
+                )
+            } else {
+                Toast.makeText(requireContext(), "No internet connection", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

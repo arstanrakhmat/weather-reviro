@@ -16,6 +16,7 @@ import com.example.revirotask.model.Favorite
 import com.example.revirotask.model.mapHourlyToFavHourly
 import com.example.revirotask.ui.fragments.BaseFragment
 import com.example.revirotask.utils.Resource
+import com.example.revirotask.utils.checkForInternet
 import com.example.revirotask.utils.filterHourlyList
 import com.example.revirotask.viewModel.FavoriteViewModel
 import com.example.revirotask.viewModel.WeatherViewModel
@@ -59,8 +60,12 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding>() {
                 findNavController().navigate(R.id.weatherDetailsFragment)
             }
 
-            binding.refreshRv.setOnRefreshListener {
+            refreshRv.setOnRefreshListener {
                 refreshDataOfFavorites()
+            }
+
+            btnMenu.setOnClickListener {
+                findNavController().navigate(R.id.weatherDetailsFragment)
             }
         }
     }
@@ -81,13 +86,16 @@ class MainPageFragment : BaseFragment<FragmentMainPageBinding>() {
     }
 
     private fun refreshDataOfFavorites() {
-        val favList = favoriteViewModel.favList.value
-
-        for (fav in favList) {
-            weatherViewModel.getWeatherData(fav.latitude, fav.longitude)
+        if (checkForInternet(requireContext())) {
+            val favList = favoriteViewModel.favList.value
+            for (fav in favList) {
+                weatherViewModel.getWeatherData(fav.latitude, fav.longitude)
+            }
+            binding.refreshRv.isRefreshing = false
+        } else {
+            Toast.makeText(requireContext(), "No internet connection", Toast.LENGTH_SHORT).show()
+            binding.refreshRv.isRefreshing = false
         }
-
-        binding.refreshRv.isRefreshing = false
     }
 
     private fun setupObserver() {
